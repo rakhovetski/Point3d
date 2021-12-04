@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Objects;
+
 class Point3D{
     private double x;
     private double y;
@@ -60,7 +62,18 @@ class Point3D{
         return check;
     }
 
-}
+    /* Филиппов А.В. 04.12.2021 Комментарий не удалять.
+     Правильный equals выглядит так.
+    */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point3D point3D = (Point3D) o;
+        return Double.compare(point3D.x, x) == 0 && Double.compare(point3D.y, y) == 0 && Double.compare(point3D.z, z) == 0;
+    }
+
+ }
 
 class Vector3D{
     private double x;
@@ -191,6 +204,13 @@ class Vector3DProcessor{
         return vector;
     }
 
+    /* Филиппов А.В. 04.12.2021 Комментарий не удалять.
+     Не работает! В main написал пример.
+     А вообще странный класс. Чтобы сложить два вектора нужно создавать новый объект...
+     Более разумным был бы класс со статическими методами вида
+       public static boolean vectorKollinear(Vector3D x, Vector3D y){
+
+    */
     public boolean vectorKollinear(){
         double x1 = this.vector1.getX();
         double y1 = this.vector1.getY();
@@ -228,6 +248,10 @@ class Vector3DArray {
         vector[i] = replVector;
     }
 
+    /* Филиппов А.В. 04.12.2021 Комментарий не удалять.
+     Не работает! Если создать массив нулевой длины (а это полезный объект т.к. иначе пустой массив придется обозначать null),
+     то будет исключение.
+    */
     public double vectorMaxLong(){
         double x = vector[0].lenght();
         for(int i = 1; i < length; i++){
@@ -260,6 +284,9 @@ class Vector3DArray {
         return sumVector;
     }
 
+    /* Филиппов А.В. 04.12.2021 Комментарий не удалять.
+     Не работает! А где тест?
+    */
     public Vector3D lineCombination(double[] x, int Long){
         if(Long != length){
             Vector3D vector = new Vector3D();
@@ -322,7 +349,14 @@ public class Main {
         vector3DArray1.replaceVector(vector1, 0);
         System.out.println(vector3DArray1.vectorMaxLong());
         System.out.println(vector3DArray1.searchVector(vector1));
+        /* Филиппов А.В. 04.12.2021 Комментарий не удалять.
+         Не работает! На экран выводится не то что ожидалось
+        */
         System.out.println(vector3DArray1.sumVectors());
         System.out.println(vector3DArray1.move(point1));
+
+        Vector3DProcessor vector3DProcessor2 = new Vector3DProcessor(0,1,1,0,2,2);
+        System.out.println("должно быть тру, а получилось " + vector3DProcessor2.vectorKollinear());
+
     }
 }
