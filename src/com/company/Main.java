@@ -45,19 +45,12 @@ class Point3D{
         System.out.println("x: " + x + "\ny: " + y + "\nz: " + z);
     }
 
-    public boolean equals(Point3D point){
-        double x = point.getX();
-        double y = point.getY();
-        double z = point.getZ();
-        boolean check;
-
-        if(Double.compare(this.x, x) == 0 && Double.compare(this.y, y) == 0 && Double.compare(this.z, z) == 0){
-            check = true;
-        }
-        else{
-            check = false;
-        }
-        return check;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point3D point3D = (Point3D) o;
+        return Double.compare(point3D.x, x) == 0 && Double.compare(point3D.y, y) == 0 && Double.compare(point3D.z, z) == 0;
     }
 
 }
@@ -84,9 +77,9 @@ class Vector3D{
         double y1 = point1.getY();
         double z1 = point1.getZ();
 
-        double x2 = point1.getX();
-        double y2 = point1.getY();
-        double z2 = point1.getZ();
+        double x2 = point2.getX();
+        double y2 = point2.getY();
+        double z2 = point2.getZ();
 
         this.x = x2 - x1;
         this.y = y2 - y1;
@@ -201,8 +194,11 @@ class Vector3DProcessor{
         double z2 = this.vector2.getZ();
 
         boolean check = false;
-        if(Double.compare(x1 / x2, y1 / y2) == 0 && Double.compare(x1 / x2, z1 / z2) == 0 && Double.compare(y1 / y2, z1 / z2) == 0){
-            check = true;
+
+        if((x1/x2) == (y1/y2)){
+            if((x1/x2) == (z1/z2)){
+                check = true;
+            }
         }
         return check;
     }
@@ -324,5 +320,24 @@ public class Main {
         System.out.println(vector3DArray1.searchVector(vector1));
         System.out.println(vector3DArray1.sumVectors());
         System.out.println(vector3DArray1.move(point1));
+
+        Vector3DProcessor vector3DProcessor2 = new Vector3DProcessor(1,2,2,2,4,4);
+        System.out.println("должно быть тру, а получилось " + vector3DProcessor2.vectorKollinear());
+
+        Vector3DArray vector3DArray2 = new Vector3DArray(4);
+        double[] a = {1.0,2.0,3.0,4.0};
+        Vector3D vector3D1 = new Vector3D(2,1,3);
+        Vector3D vector3D2 = new Vector3D(1,1,3);
+        Vector3D vector3D3 = new Vector3D(4,1,3);
+        Vector3D vector3D4 = new Vector3D(2,5,3);
+        vector3DArray2.replaceVector(vector3D1,0);
+        vector3DArray2.replaceVector(vector3D2,1);
+        vector3DArray2.replaceVector(vector3D3,2);
+        vector3DArray2.replaceVector(vector3D4,3);
+        Vector3D vector3D = new Vector3D();
+        vector3D = vector3DArray2.lineCombination(a,4);
+        System.out.println(vector3D.getX());
+        System.out.println(vector3D.getY());
+        System.out.println(vector3D.getZ());
     }
 }
