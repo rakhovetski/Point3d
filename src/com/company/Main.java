@@ -339,5 +339,12 @@ public class Main {
         System.out.println(vector3D.getX());
         System.out.println(vector3D.getY());
         System.out.println(vector3D.getZ());
+
+        Point3D point3D = new Point3D(1,2,3);
+        Point3D[] point3DS = new Point3D[4];
+        point3DS = vector3DArray2.move(point3D);
+        System.out.println(point3DS[0].getX());
+        System.out.println(point3DS[0].getY());
+        System.out.println(point3DS[0].getZ());
     }
 }
