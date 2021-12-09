@@ -256,20 +256,20 @@ class Vector3DArray {
         return sumVector;
     }
 
-    public Vector3D lineCombination(double[] x, int Long){
-        if(Long != length){
-            Vector3D vector = new Vector3D();
-            return vector;
+    public Vector3D lineCombination(double[] x){
+
+        if(x.length != this.length){
+            throw new IllegalArgumentException();
         }
-        else{
+        else {
             double x1 = 0;
             double y1 = 0;
             double z1 = 0;
             Vector3D linevector = new Vector3D();
-            for(int i = 0; i < length; i++){
-                x1 = x1 + vector[i].getX()*x[i];
-                y1 = y1 + vector[i].getY()*x[i];
-                z1 = z1 + vector[i].getZ()*x[i];
+            for (int i = 0; i < length; i++) {
+                x1 = x1 + vector[i].getX() * x[i];
+                y1 = y1 + vector[i].getY() * x[i];
+                z1 = z1 + vector[i].getZ() * x[i];
             }
             linevector.setX(x1);
             linevector.setY(y1);
@@ -280,7 +280,7 @@ class Vector3DArray {
 
     public Point3D[] move(Point3D P)
     {
-        Point3D[] shiftPoints= new Point3D[vector.length];
+        Point3D[] shiftPoints = new Point3D[vector.length];
         double x1, y1, z1;
         for(int i = 0; i < vector.length; i++)
         {
@@ -335,7 +335,7 @@ public class Main {
         vector3DArray2.replaceVector(vector3D3,2);
         vector3DArray2.replaceVector(vector3D4,3);
         Vector3D vector3D = new Vector3D();
-        vector3D = vector3DArray2.lineCombination(a,4);
+        vector3D = vector3DArray2.lineCombination(a);
         System.out.println(vector3D.getX());
         System.out.println(vector3D.getY());
         System.out.println(vector3D.getZ());
